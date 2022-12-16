@@ -1,0 +1,290 @@
+﻿@model IEnumerable<Linebalance.Models.GLinebalance>
+
+@using Linebalance.Models;
+
+@{
+    ViewBag.Title = "DASHBORD";
+    Layout = null;
+    //List<MES_R_UTILIZE> Fre = ViewData["body"] as List<MES_R_UTILIZE>;
+    ////List<MES_R_UTILIZE_> ChartLine = ViewData["ChLine"] as List<MES_R_UTILIZE_LINE>;
+    ////List<MES>
+    //List<Input> factory = ViewData["Fac"] as List<Input>;
+    //List<Input> parea = ViewData["PArea"] as List<Input>;
+    //List<Input> pplant = ViewData["Plant"] as List<Input>;
+    List<OIRate> OI = ViewData["OI"] as List<OIRate>;
+    List<Input> facs = ViewData["Fac"] as List<Input>;
+    List<R_LOGIN_AREA> aears = ViewData["Area"] as List<R_LOGIN_AREA>;
+    List<R_LOGIN_LINE> lines = ViewData["Line"] as List<R_LOGIN_LINE>;
+    List<T_MODEL> modelZ = ViewData["Model"] as List<T_MODEL>;
+    //List<Qfactory_new> FacBQ = ViewData["FacNew"] as List<Qfactory_new>;
+    //ViewBag.User = @ViewBag.User;
+    //ViewBag.fac = @ViewBag.fac;
+    //List<Input> ldata = ViewData["body"] as List<Input>;
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel='stylesheet' href='~/Css/datedanger.css'>
+
+}
+
+
+<div id="tableRe">
+    <div class="sup-box-right-fix">
+        <div class="scroll-pane">
+            <table id="datatable">
+
+                <thead>
+
+                    <tr>
+
+                        <th></th>
+
+                        <th>Machine</th>
+                        <th>@OI[0].RATE</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <th>@item.EQUIPMENT_CODE</th>
+                        <td>@item.CYCLETIME</td>
+
+                        <td>@OI[0].RATE</td>
+                    </tr>
+
+
+                    }
+
+
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    <div class="sup-box-next highcharts-b highcharts-figure">
+        <div id="container" style="width: 100%; height: 420px; margin: 0 auto"></div>
+    </div>
+</div>
+<div class="sup-box-right">
+    @*<button class="btnE"><i class="fas fa-file-export" style="font-size: 15px;">@Html.ActionLink("Export", "DownloadFile")</i></button>*@
+    <div class="scroll-pane">
+        <table id="QueryTable" class="table-fill" overflow:auto;>
+
+            <thead>
+                <tr>
+                    <th>FACTORY</th>
+                    @*<th>Production Plan</th>*@
+                    @foreach (var items in Model)
+                    {
+                        <th id="@items.EQUIPMENT_CODE">@items.EQUIPMENT_CODE</th>
+                    }
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+
+                    <td>DET</td>
+
+                    @*<td>@Fre[0].PROD_AREA</td>*@
+
+                    @foreach (var item in Model)
+                    {
+
+                        <td @*onclick="gDate(this)"*@>@item.CYCLETIME %</td>
+
+                    }
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            location.reload();
+        }, 3000000);
+
+        $('#DateId').daterangepicker(
+            {
+                "singleDatePicker": true,
+                "startDate": moment(),
+                "endDate": moment().endOf('year'),
+                "opens": "center"
+            });
+
+        Highcharts.chart('container', {
+
+            data: {
+                table: document.getElementById('datatable')
+            },
+
+            series: [{
+                type: 'column',
+                color: '#00ADD4'
+            },
+            {
+                type: 'line',
+                color: '#64D7D7',
+                lineWidth: 3
+
+
+            }],
+            plotOptions: {
+                line: { // <--- Chart type here, check the API reference first!
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+
+            title: {
+
+                text: 'Line Balance'
+
+            },
+
+            yAxis: {
+                min: 0,
+                title: {
+                    text: ''
+                }
+            },
+            tooltip : {
+                mode: 'index',
+                callbacks: {
+                    labelColor: tooltipItem => {
+                        var color = tooltipItem.datasetIndex == 0 ? 'green' : 'red';
+                        return {
+                            borderColor: color,
+                            backgroundColor: color
+                        }
+                    }
+                }
+
+            }
+
+        });
+
+
+    });
+
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function (start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+    });
+    function gDate(x) {
+
+        alert("Row index is: " + x.rowIndex);
+    }
+
+    function ajaxSet(url, method, postData) {
+        return {
+            type: method,
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(postData),
+            dataType: "html",
+        };
+    }
+
+    function LoadInfo() {
+
+        var x = document.getElementById("myCheck").checked;
+
+        $("#id").empty();
+        var fac = {};
+        fac.factory = $("#factory").val();
+        fac.Area = $("#Area").val();
+        fac.line = $("#Line").val();
+        fac.model = $("#Model").val();
+        fac.date = $("#Date").val();
+        fac.check = x;
+
+        var Settings = ajaxSet("@Url.Action("ConLineBalance", "linebarlance")", "POST", fac);
+        $.ajax(Settings).done(function (resHtml) {
+            $('#tableRe').html('');
+            $('#tableRe').html(resHtml);
+
+
+        }).fail(function (res) {
+            $('#tableRe').html(res.responseText);
+        });
+
+
+    }
+    $("#Query").click(function (e) {
+
+        e.preventDefault()
+        LoadInfo();
+
+    });
+
+
+
+
+
+    //$('#QueryTable tbody').on('click', 'tr', function () {
+    //    var data = table.row(this).data();
+    //    alert('You clicked on ' + data[0] + '\'s row');
+    //});
+
+    //$("#QueryTable tbody td").click(function () {
+    //    console.log($(this).text());
+    //});
+
+    $("#Export").click(function () {
+        var fac = {};
+        fac.plant = $("#plant").val();
+        fac.factory = $("#factory").val();
+        //fac.START = $("#START").val();
+        //fac.END = $("#END").val();
+        fac.paera = $("#paera").val();
+        fac.line = $("#line").val();
+        jQuery.ajax({
+            type: "POST",
+            url: "/Home/BntExport",
+            data: JSON.stringify(fac),
+            dataType: "json",
+            contentType: "application/json",
+            traditional: true,
+            success: function (data) {
+                //alert("ok");
+            }
+        });
+    });
+
+    $("#Reset").click(function () {
+        jQuery.ajax({
+            type: "POST",
+            url: "Utilization/Home/BntReset",
+            //data: JSON.stringify(fac),
+            dataType: "json",
+            contentType: "application/json",
+            traditional: true,
+
+        });
+    });
+
+
+</script>
+
+
+
+
+

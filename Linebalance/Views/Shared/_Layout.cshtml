@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LINE BALANCE</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+    <style type="text/css">
+        #navcolor {
+            background-color: #0082e6;
+            /*background-image: linear-gradient(to bottom right, #0099FF, #00CCFF);*/
+            height: 50px;
+            /*background-image: url(https://localhost:44321/image/BG_main.png)*/
+        }
+
+        .navbar-default .navbar-fnt {
+            color: #FFFFFF;
+        }
+
+        .h3 {
+            font-size: 60px;
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: montserrat;
+            width: 100%;
+            /*background-image: url(https://localhost:44321/image/BG_main.png)*/
+            /* background-image: url(https://png.pngtree.com/png-clipart/20190614/original/pngtree-blue-curve-irregular-shape-line-technology-png-image_3800897.jpg)*/
+            background: #d9d9da;
+            /*position: fixed;*/
+        }
+
+        nav {
+            background: #0082e6;
+            background-image: linear-gradient(to bottom right, #0099FF, #00CCFF);
+            height: 60px;
+            top: 0;
+            width: 100%;
+            position: fixed;
+        }
+
+        label.logo {
+            color: white;
+            font-size: 35px;
+            line-height: 80px;
+            padding: 1px 100px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            float: right;
+            margin-right: 20px;
+        }
+
+            nav ul li {
+                display: inline-block;
+                line-height: 80px;
+                margin: 0 5px;
+                position: fixed;
+            }
+
+                nav ul li a {
+                    color: white;
+                    font-size: 17px;
+                    padding: 7px 13px;
+                    border-radius: 3px;
+                    text-transform: uppercase;
+                }
+
+        a.active, a:hover {
+            background: #1b9bff;
+            transition: .5s;
+        }
+
+        .checkbtn {
+            font-size: 30px;
+            color: white;
+            float: right;
+            line-height: 80px;
+            margin-right: 40px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #check {
+            display: none;
+        }
+
+        ul {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #2c3e50;
+            top: 80px;
+            left: -100%;
+            text-align: center;
+            transition: all .5s;
+        }
+
+        nav ul li {
+            display: block;
+            margin: 50px 0;
+            line-height: 30px;
+        }
+
+            nav ul li a {
+                font-size: 20px;
+            }
+
+        a:hover, a.active {
+            background: none;
+            color: #0082e6;
+        }
+
+        #check:checked ~ ul {
+            left: 0;
+        }
+
+
+
+        section {
+            background: url(bg1.jpg) no-repeat;
+            background-size: cover;
+            height: calc(100vh - 80px);
+        }
+
+        #imgDETLogo {
+            background: url(http://thbpoprodap-mes.delta.corp/Utilization/image/delta-logo.png);
+            height: 35px;
+            display: inline-block;
+            width: 115px;
+            margin: 5px 0 0 5px;
+        }
+
+        .line1 {
+            background: #00CCFF;
+            width: 100%;
+            height: 6px;
+            outline: none;
+            /*            padding: 30px 30px 30px 30px;
+            position: absolute;*/
+            /*top: 505px;*/
+            /*left: 30px;
+            right: 20px;
+            bottom: auto;
+            border-radius: 5px;*/
+        }
+
+        .line2 {
+            background: #64d7d7;
+            width: 40%;
+            height: 6px;
+            outline: none;
+            /*            padding: 30px 30px 30px 30px;
+            position: absolute;*/
+            /*top: 505px;*/
+            left: 15000px;
+            /*right: 20px;
+            bottom: auto;
+            border-radius: 5px;*/ 
+        }
+
+        .line3 {
+            background: #b9eb5f;
+            width: 30%;
+            height: 6px;
+            /*            padding: 30px 30px 30px 30px;
+            position: absolute;*/
+            top: 505px;
+            /*left: 30px;
+            right: 20px;
+            bottom: auto;
+            border-radius: 5px;*/
+        }
+
+        .box-logout {
+            background: #0082e6;
+            width: 80px;
+            position: absolute;
+            color: aliceblue;
+            height: 30px;
+            top: 15px;
+            left: auto;
+            right: 30px;
+        }
+
+        .box-it {
+            background: #0082e6;
+            width: 85%;
+            color: aliceblue;
+            height: 30px;
+            top: 12px;
+            position: absolute;
+            left: 7%;
+            right: auto;
+            text-align: center;
+        }
+
+        .box-user {
+            background: #0082e6;
+            width: 200px;
+            position: absolute;
+            color: aliceblue;
+            height: 30px;
+            top: 15px;
+            left: auto;
+            right: 130px;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav" id="navcolor">
+        <a id="imgDETLogo"></a>
+
+    </div>
+    <ul class="navbar-brand box-it">
+
+        <li><a style="color: aliceblue; font-size: 25px;" href="#">Line balance</a></li>
+    </ul>
+    <ul class="navbar-brand box-logout">
+        <li><i class="fa fa-sign-out"></i>   <a style="color: aliceblue; font-size: 18px;" href="~/Home/Login">Logout</a></li>
+    </ul>
+    <ul class="navbar-brand box-user">
+        <li><i class="fa fa-user"></i>   <a style="color: aliceblue; font-size: 18px;" href="#">@ViewData["User"]</a></li>
+    </ul>
+    <div class="line1">
+        <div class="line2">
+            <div class="line3">
+            </div>
+        </div>
+    </div>
+
+    <div class="body">
+        @RenderBody()
+    </div>
+
+
+    @*<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+
+    @*<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css" />*@
+
+
+
+
+</body>
+</html>

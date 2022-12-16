@@ -1,0 +1,384 @@
+﻿@*@model Dashbord_demo.Models.R_LONGIN*@
+@model IEnumerable<Linebalance.Models.R_LOGIN>
+@using Linebalance.Models;
+
+@{
+
+    ViewBag.Title = "LOGIN";
+    //ViewBag.User = @ViewBag.User;
+
+
+    //List<R_LONGIN> rLogin = ViewData["rLogin1"] as List<R_LONGIN>;
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<style type="text/css">
+
+    .login-form h3 {
+        font-size: 20px;
+        text-align: center;
+        color: #fff;
+        margin-bottom: 30px;
+        font-weight: normal;
+    }
+
+    .login-form h2 {
+        font-size: 20px;
+        text-align: center;
+        color: #0087dc;
+        margin-bottom: 30px;
+        font-weight: normal;
+    }
+
+    .login-form h1 {
+        font-size: 36px;
+        text-align: center;
+        color: #45aba6;
+        margin-bottom: 30px;
+        font-weight: normal;
+    }
+
+    .login-form .social-icon {
+        width: 100%;
+        font-size: 20px;
+        padding-top: 20px;
+        color: #fff;
+        text-align: center;
+        float: left;
+        top: 1300px;
+    }
+
+    .login-form-heard {
+        font-size: 25px;
+        text-align: center;
+        color: #ccc;
+        margin-bottom: 30px;
+        font-weight: normal;
+        margin-left: 800px;
+        margin-right: 300px;
+        background: #45aba6;
+        width: 400px;
+        height: 50px;
+        padding: 30px 30px 30px 30px;
+        position: absolute;
+        top: 150px;
+        left: 30px;
+        right: 20px;
+        bottom: auto;
+        border-radius: 20px;
+    }
+
+    .login-form {
+        margin-left: 810px;
+        margin-right: 300px;
+        background: #fff;
+        /* background-image: url(https://img.freepik.com/free-photo/business-people-meeting-team-working-wooden-desk-hand-man-pointing-financial-documents_2034-1518.jpg);*/
+        width: 400px;
+        height: 350px;
+        padding: 30px 30px 30px 30px;
+        position: absolute;
+        top: 220px;
+        left: 30px;
+        right: 20px;
+        bottom: auto;
+        border-radius: 5px;
+    }
+
+    .login-form-big {
+        margin-left: 250px;
+        margin-right: 100px;
+        background: #fff;
+        /*background-image: url(https://cdn-icons-png.flaticon.com/512/1055/1055644.png);*/
+        width: 1000px;
+        height: 550px;
+        padding: 30px 30px 30px 30px;
+        position: absolute;
+        top: 125px;
+        left: 30px;
+        right: 20px;
+        bottom: auto;
+        border-radius: 50px;
+    }
+
+    .login-form-pic {
+        margin-left: 250px;
+        margin-right: 100px;
+        background: #fff;
+        /*background-image: url(https://cdn-icons-png.flaticon.com/512/1055/1055644.png);*/
+        /* width: 515px;
+        height: 512px;*/
+        padding: 30px 30px 30px 30px;
+        position: absolute;
+        top: 18px;
+        left: 10px;
+        right: 20px;
+        bottom: auto;
+        border-radius: 80px;
+    }
+
+    #imgback {
+        background-image: url(http://thbpoprodap-mes.delta.corp/Utilization/image/quick-reportsa.png);
+        /*background-image: url(https://cdn-icons-png.flaticon.com/512/1055/1055644.png);*/
+        /*height: 512px;
+        display: inline-block;
+        width: 515px;*/
+        height: 512px;
+        display: inline-block;
+        width: 515px;
+        margin: 0px;
+        margin-left: 0;
+    }
+
+
+    .login-form-sup {
+        margin-left: 100px;
+        margin-right: 300px;
+        background: #fff;
+        width: 450px;
+        height: 400px;
+        padding: 30px 30px 30px 30px;
+        position: absolute;
+        top: 170px;
+        /*        left: 0px;
+        right: 0px;*/
+        bottom: auto;
+        border-radius: 5px;
+    }
+
+    .form-group {
+        float: left;
+        width: 100%;
+        margin: 0 0 15px;
+        position: relative;
+    }
+
+    .login-form input {
+        width: 100%;
+        padding: 5px;
+        height: 56px;
+        border-radius: 74px;
+        /*border: 1px solid #ccc;*/
+        box-sizing: border-box;
+        font-size: 20px;
+        padding-left: 75px;
+        font-family: Courier New;
+        border: 1px solid #c3c1c1;
+    }
+
+    .login-form .form-group .input-icon {
+        font-size: 15px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        border-radius: 25px;
+        bottom: 0;
+        height: 100%;
+        padding-left: 35px;
+        color: #666;
+    }
+
+    .login-form .login-btn {
+        /*background: #45aba6;*/
+        background-image: linear-gradient(to bottom right, #00afef, #00afef, #00afef);
+        padding: 11px 50px;
+        /*border-color: linear-gradient(to bottom right, #03ccfa, #3fc4bd, rgb(0 255 255));*/
+        color: #fff;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 20px;
+        border: 1px solid #00afef;
+        border-radius: 44px;
+        width: 100%;
+        height: 56px;
+        cursor: pointer;
+    }
+
+    .login-form .reset-psw {
+        float: left;
+        width: 100%;
+        text-decoration: none;
+        color: #45aba6;
+        font-size: 14px;
+        text-align: center;
+        margin-top: 11px;
+    }
+
+    .login-form .social-icon button {
+        font-size: 20px;
+        color: white;
+        height: 50px;
+        width: 50px;
+        background: #45aba6;
+        border-radius: 60%;
+        margin: 0px 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .login-form button:hover {
+        opacity: 0.9;
+    }
+
+    .login-form .seperator {
+        float: left;
+        width: 100%;
+        border-top: 1px solid #ccc;
+        /*border: 1px solid #00afef;*/
+        text-align: center;
+        margin: 50px 0 0;
+    }
+
+        .login-form .seperator b {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+            text-align: center;
+            line-height: 40px;
+            background: #fff;
+            display: inline-block;
+            border: 1px solid #e0e0e0;
+            border-radius: 50%;
+            position: relative;
+            top: -22px;
+            z-index: 1;
+        }
+
+    .login-form p {
+        float: left;
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        margin: 0 0 10px;
+    }
+
+    .form-input {
+        position: relative;
+        font-family: "Source Sans Pro", sans-serif;
+        /*font-weight: 600;*/
+        width: 100%;
+        height: 53px;
+        /*left: 10px;*/
+        /*right: px;*/
+        border: none;
+        padding: 0 15px;
+        /*padding-left: 10px;*/
+        margin-right: 75px;
+        box-shadow: none;
+        outline: none;
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -ms-transition: all .5s ease;
+        -o-transition: all .5s ease;
+        transition: all .5s ease;
+    }
+
+
+        .form-input.smooth-corner {
+            border-radius: 90px;
+            padding-left: 75px;
+            font-family: Courier New;
+            font-size: 20px;
+        }
+
+        .form-input.basic {
+            border: 2px solid rgba(0, 0, 0, .15);
+        }
+
+            .form-input.basic:hover {
+                border-color: rgba(0, 0, 0, .35);
+                box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+            }
+
+            .form-input.basic:focus {
+                border-color: #4285F4;
+                box-shadow: 0 0 10px rgba(66, 133, 244, .5);
+            }
+</style>
+<body>
+    <div id="LoginC">
+        <div class="login-form-big">
+            <div class="login-form-pic" id="imgback">
+                @*<h3>Login</h3>*@
+            </div>
+        </div>
+
+        <div class="login-form">
+
+            <form action="~/linebarlance/LineBanace" method="post" target="_blank">
+                <h2>Login From</h2>
+                @if (Model != null)
+                {
+                    foreach (var ac in Model)
+                    {
+                        <div class="form-group">
+
+                            <input class="form-input basic smooth-corner" id="user" type="text" name="user" value="@ac.emp_account">
+                            <span class="input-icon"><i class="fas fa-user-check"></i></span>
+
+                        </div>
+                    }
+                }
+                <div class="form-group">
+                    <select id="plant" onselect="slplant" name="plant" class="combobox form-input basic smooth-corner">
+                        <option></option>
+                        <option id="0">DET_AM</option>
+                        <option id="1">DET_CN</option>
+                        <option id="2">DET_DA</option>
+                        <option id="3">DET_MP</option>
+                        <option id="4">DET_PS</option>
+                        <option id="5">DET_HP</option>
+                        <option id="6">SFISM4</option>
+                        <option id="7">DET_FM</option>
+                        <option id="8">DET_MS</option>
+                        <option id="9">DET_CNDC</option>
+                    </select>
+                    <span class="input-icon"><i class="fas fa-landmark"></i></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="login-btn">
+                        <a href="~/linebarlance/LineBanace">
+                            <h3>Login</h3>
+                        </a>
+                    @*</input>*@
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        setTimeout(function () {
+            location.reload();
+        }, 30000);
+
+
+    });
+     function Load() {
+        var fac = {};
+        fac.plant = $("#plant").val();
+
+        var Settings = ajaxSet("@Url.Action("LineBanace", "linebarlance")", "POST", fac);
+        $.ajax(Settings).done(function (resHtml) {
+            $('#LoginC').html('');
+            $('#LoginC').html(resHtml);
+
+
+        }).fail(function (res) {
+            $('#LoginC').html(res.responseText);
+        });
+
+
+    }
+    //$("#loadc").click(function (e) {
+
+    //    Load();
+
+    //});
+</script>
+
+
